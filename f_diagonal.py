@@ -15,7 +15,7 @@ def ExactDiagonalization(PATH_now,LL,DD,VV,n_r,rank,Tab_CdC):
 	#V		= 2.
 	#..................................................disorder parameters
 	#...................dis_gen=0 random, dis_gen=1 quasiperiodic
-	Dis_gen = 1
+	Dis_gen = 0
 	#..................................................Supspace dimension
 	NN  = int(LL/2)
 	Dim = int(special.binom(LL,NN))
@@ -77,11 +77,11 @@ def ExactDiagonalization(PATH_now,LL,DD,VV,n_r,rank,Tab_CdC):
 
 
 	#.............................CiCj
-#	CdC    = ff.Mat_CdC_Psi0(Tab_CdC,Proj_Psi0,Dim,LL,V)
-#	CdC_tr = ff.Trasl_Mean(CdC)
+	CdC    = ff.Mat_CdC_Psi0(Tab_CdC,Proj_Psi0,Dim,LL,V)
+	CdC_tr = ff.Trasl_Mean(CdC)
 
-#	nomefile_cc = str('corr_c-'+str(n_r)+'_r-'+str(rank)+'.dat')
-#	np.savetxt(PATH_now+nomefile_cc, CdC_tr, fmt='%.9f')
+	nomefile_cc = str('corr_c-'+str(n_r)+'_r-'+str(rank)+'.dat')
+	np.savetxt(PATH_now+nomefile_cc, CdC_tr, fmt='%.9f')
 
 	return 1
 
