@@ -48,7 +48,7 @@ def ExactDiagonalization(PATH_now,LL,DD,VV,n_r,rank,Tab_CdC):
 	#V[:,Psi0] autovettori
 
 	#.............................Initial state
-	Psi0		= 0#ff.Psi_0(Dim,Base_Bin,LL,LinTab)
+	Psi0		= ff.Psi_0(Dim,Base_Bin,LL,LinTab)
 	Proj_Psi0   = ff.Proj_Psi0(Psi0,V)
 
 
@@ -66,34 +66,23 @@ def ExactDiagonalization(PATH_now,LL,DD,VV,n_r,rank,Tab_CdC):
 	DensDens	= ff.OUTER_creation(LL,Dim,Dens)
 
 	#.............................NN
-	Psi0		= 0
-	Proj_Psi0   = ff.Proj_Psi0(Psi0,V)
-
-
-
-#	NN_Conn	   = ff.Mat_Corr_Psi0(V,Base_Corr,Proj_Psi0)
 	NN_Conn	   = ff.Mat_CorrConn_Psi0(V,Base_Corr,Proj_Psi0,DensDens)
 	NN_Conn_tr = ff.Trasl_Mean(NN_Conn)
-
-	print NN_Conn_tr
-
-
-	'''
 
 	nomefile_NN = str('corr_n-'+str(n_r)+'.dat')
 	np.savetxt(PATH_now+nomefile_NN, NN_Conn_tr, fmt='%.9f')
 
-	nomefile_NN1 = str('corr_n1-'+str(n_r)+'.dat')
-	np.savetxt(PATH_now+nomefile_NN1, NN_Conn, fmt='%.9f')
+#	nomefile_NN1 = str('corr_n1-'+str(n_r)+'.dat')
+#	np.savetxt(PATH_now+nomefile_NN1, NN_Conn, fmt='%.9f')
 
 
 	#.............................CiCj
-	CdC    = ff.Mat_CdC_Psi0(Tab_CdC,Proj_Psi0,Dim,LL,V)
-	CdC_tr = ff.Trasl_Mean(CdC)
+#	CdC    = ff.Mat_CdC_Psi0(Tab_CdC,Proj_Psi0,Dim,LL,V)
+#	CdC_tr = ff.Trasl_Mean(CdC)
 
-	nomefile_cc = str('corr_c-'+str(n_r)+'.dat')
-	np.savetxt(PATH_now+nomefile_cc, CdC_tr, fmt='%.9f')
-	'''
+#	nomefile_cc = str('corr_c-'+str(n_r)+'.dat')
+#	np.savetxt(PATH_now+nomefile_cc, CdC_tr, fmt='%.9f')
+
 	return 1
 
 
