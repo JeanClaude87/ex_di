@@ -18,8 +18,8 @@ D_tab = [D_i+j*D_D for j in range(D_n)]
 
 
 #....................................LUNGHEZZA
-L_i = 12
-L_f = 12
+L_i = 8
+L_f = 14
 L_D = 2
 
 L_n = int(1+(L_f-L_i)/L_D)
@@ -49,7 +49,7 @@ if rank == 0:
 
 
 #....................................NN Realiz
-NN_RR = [80] #*64
+NN_RR = [40,40,20,10] #*30
 N_proc = size
 
 n0=0
