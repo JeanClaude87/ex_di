@@ -78,6 +78,7 @@ def ExactDiagonalization(PATH_now,LL,DD,VV,n_r,rank,Tab_CdC):
 
 	#.............................CiCj
 	CdC    = ff.Mat_CdC_Psi0(Tab_CdC,Proj_Psi0,Dim,LL,V)
+	print CdC
 	CdC_tr = ff.Trasl_Mean(CdC)
 
 	nomefile_cc = str('corr_c-'+str(n_r)+'_r-'+str(rank)+'.dat')

@@ -18,8 +18,8 @@ D_tab = [D_i+j*D_D for j in range(D_n)]
 
 
 #....................................LUNGHEZZA
-L_i = 4
-L_f = 4
+L_i = 12
+L_f = 12
 L_D = 2
 
 L_n = int(1+(L_f-L_i)/L_D)
