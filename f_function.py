@@ -5,6 +5,9 @@ import scipy.linalg as _la
 import itertools
 import time 
 import scipy.special as special
+import os
+from datetime import datetime
+import time
 
 
 #..................................counting number of zero
@@ -296,6 +299,15 @@ def Mat_CdC_Psi0(UU1,Proj_Psi0,Dim,LL,V):
 	CC1 = np.einsum('ijk -> jk', CC)
 
 	return CC1
+
+def generate_filename(basename):
+	unix_timestamp = int(time.time())
+	local_time = datetime.fromtimestamp(unix_timestamp)
+	xx = basename + local_time.strftime("%H%M%S") + ".dat"
+	if os.path.isfile(xx):
+		time.sleep(1)
+		return generate_filename(basename)
+	return xx
 
 #..................................................Entropy
 

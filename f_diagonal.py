@@ -4,7 +4,9 @@ import scipy.special as special
 import f_function as ff
 
 
-def ExactDiagonalization(PATH_now,LL,DD,VV,n_r,rank,Tab_CdC):
+def ExactDiagonalization(PATH_now,L,D,VV,n_r,rank,Tab_CdC):
+
+	#here LL is the number L is the string
 
 	t0=time.time()
 	#.PARAMETERS.......................................boundary conditions
@@ -17,6 +19,9 @@ def ExactDiagonalization(PATH_now,LL,DD,VV,n_r,rank,Tab_CdC):
 	#...................dis_gen=0 random, dis_gen=1 quasiperiodic
 	Dis_gen = 0
 	#..................................................Supspace dimension
+	LL = int(float(L))
+	DD = float(D)
+
 	NN  = int(LL/2)
 	Dim = int(special.binom(LL,NN))
 
@@ -55,7 +60,7 @@ def ExactDiagonalization(PATH_now,LL,DD,VV,n_r,rank,Tab_CdC):
 	entropy = -np.sum(Proj_Psi0*np.log2(Proj_Psi0))
 
 	nomefile_ent = str(PATH_now+'entr-'+str(n_r)+'_r-'+str(rank)+'.dat')
-	with open(nomefile_ent, 'w') as ee:
+	with open(ff.generate_filename(nomefile_ent), 'w') as ee:
 		ee.write('%f' % entropy)
 
 	#.............................Densita
@@ -70,19 +75,15 @@ def ExactDiagonalization(PATH_now,LL,DD,VV,n_r,rank,Tab_CdC):
 	NN_Conn_tr = ff.Trasl_Mean(NN_Conn)
 
 	nomefile_NN = str('corr_n-'+str(n_r)+'_r-'+str(rank)+'.dat')
-	np.savetxt(PATH_now+nomefile_NN, NN_Conn_tr, fmt='%.9f')
-
-#	nomefile_NN1 = str('corr_n1-'+str(n_r)+'.dat')
-#	np.savetxt(PATH_now+nomefile_NN1, NN_Conn, fmt='%.9f')
+	np.savetxt(ff.generate_filename(PATH_now+nomefile_NN), NN_Conn_tr, fmt='%.9f')
 
 
 	#.............................CiCj
 	CdC    = ff.Mat_CdC_Psi0(Tab_CdC,Proj_Psi0,Dim,LL,V)
-	print CdC
 	CdC_tr = ff.Trasl_Mean(CdC)
 
 	nomefile_cc = str('corr_c-'+str(n_r)+'_r-'+str(rank)+'.dat')
-	np.savetxt(PATH_now+nomefile_cc, CdC_tr, fmt='%.9f')
+	np.savetxt(ff.generate_filename(PATH_now+nomefile_cc), CdC_tr, fmt='%.9f')
 
 	return 1
 
