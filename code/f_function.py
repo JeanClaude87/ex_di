@@ -291,7 +291,7 @@ def Mat_CdC_Psi0(UU1,Proj_Psi0,Dim,LL,V):
 			for j in range(i,LL):
 				uu = UU1[i,j]
 				#CC[l,j,i] = CC[l,i,j] = np.inner(V[uu[:,0],l],V[uu[:,1],l])
-				print l, i, j, np.inner(V[uu[:,0],l],V[uu[:,1],l])
+				print Dim, l, i, j, np.inner(V[uu[:,0],l],V[uu[:,1],l])
 		np.fill_diagonal(CC[l], 0.25)
 		
 		CC[l] *= Proj_Psi0[l]
