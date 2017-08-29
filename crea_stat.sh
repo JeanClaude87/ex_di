@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 rm -f script_wait.sh
 
 printf "%s\n" "#!/bin/bash" >> script_wait.sh
 
-LL=($(seq 8 2 10))
+LL=(8 10)
 nr=(4 4)
 DD=(0.75 1.25 1.75 2.25)
 
@@ -31,14 +31,9 @@ for((i=1; i<$lenl; i++))
 		for((n_real=0; n_real<${nr[i]}; n_real++))
 			do
 		
-		awk -v Gamma=$n_real -v Beta=$D -v Alpha=$L ' 
-			{if (($1=="L") && ($2=="=")) 		$3="     " Alpha;	}
-			{if (($1=="D") && ($2=="=")) 		$3="     " Beta;	}
-			{if (($1=="n_real") && ($2=="=")) 	$3="     " Gamma;	} { print $0;} 
-			'  code/lancio.sh  > temp2.inp;
-			
-			cp temp2.inp uga-L_$L-D_$D-nr_$n_real.inp 
-			rm temp2.inp
+			sed -e "s/LLL/$L/g" -e "s/DDD/$D/g" -e "s/nnn/$n_real/g" < code/lancio.sh > temp.tmp
+
+			mv temp.tmp uga-L_$L-D_$D-nr_$n_real.inp 	
 
 			printf 	"%s\n" "qsub uga-L_$L-D_$D-nr_$n_real.inp" >> script_wait.sh
 
@@ -46,3 +41,4 @@ for((i=1; i<$lenl; i++))
 		done
 	done	
 
+chmod +x script_wait.sh
