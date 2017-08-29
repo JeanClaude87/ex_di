@@ -3,7 +3,6 @@ import time
 import scipy.special as special
 import f_function as ff
 
-
 def ExactDiagonalization(PATH_now,L,D,VV,Tab_CdC):
 
 	#here LL is the number L is the string
