@@ -3,9 +3,9 @@ rm -f script_wait.sh
 
 printf "%s\n" "#!/bin/bash" >> script_wait.sh
 
-LL=(8 10)
-nr=(4 4)
-DD=(0.75 1.25 1.75 2.25)
+LL=(8 10 12 14 16)
+nr=(2 2 2 2 2)
+DD=(0.75)
 
 
 #nr=(10000 6000 6000 1000)
@@ -15,12 +15,12 @@ DD=(0.75 1.25 1.75 2.25)
 lenl=${#LL[@]%.*} 
 lend=${#DD[@]%.*} 
 
-for((i=1; i<$lenl; i++))
+for((i=0; i<$lenl; i++))
 	do
 		L=${LL[i]}
 
 
-	for((j=1; j<$lend; j++))
+	for((j=0; j<$lend; j++))
 		do
 			D=${DD[j]}
 	
