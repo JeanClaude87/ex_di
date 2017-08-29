@@ -3,8 +3,8 @@ rm -f script_wait.sh
 
 printf "%s\n" "#!/bin/bash" >> script_wait.sh
 
-LL=(8 10 12 14 16)
-nr=(2 2 2 2 2)
+LL=(12)
+nr=(2) 
 DD=(0.75)
 
 
