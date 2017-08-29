@@ -55,7 +55,7 @@ with open('../fatti.dat', 'a') as ee:
 
 
 
-filenameRM='uga-L_'+str(LL)+'-d_'+str(DD)'-nr_'+str(n_rea)+'.inp'
+filenameRM='../uga-L_'+str(LL)+'-D_'+str(DD)+'-nr_'+str(n_rea)+'.inp'
 if os.path.exists(filenameRM):
     os.remove(filenameRM)
 
