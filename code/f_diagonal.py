@@ -2,6 +2,7 @@ import numpy as np
 import time 
 import scipy.special as special
 import f_function as ff
+from scipy.special import comb
 
 def ExactDiagonalization(PATH_now,L,D,VV,Tab_CdC):
 
@@ -22,7 +23,7 @@ def ExactDiagonalization(PATH_now,L,D,VV,Tab_CdC):
 	DD = float(D)
 
 	NN  = int(LL/2)
-	Dim = int(special.binom(LL,NN))
+	Dim = comb(LL, NN, exact=True)
 
 	#..................................................Base creation
 	Base_Num = ff.Base_prep(LL,NN)

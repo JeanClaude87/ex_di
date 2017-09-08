@@ -53,3 +53,13 @@ tempotras = (end - start)
 with open('../fatti.dat', 'a') as ee:
 	ee.write('\n	finito	L '+str(LL)+' D '+str(DD)+' nr '+str(n_rea)+'	tempo '+str(tempotras))
 
+
+
+filenameRM='../uga-L_'+str(LL)+'-D_'+str(DD)+'-nr_'+str(n_rea)+'.inp'
+if os.path.exists(filenameRM):
+    os.remove(filenameRM)
+
+
+
+
+
