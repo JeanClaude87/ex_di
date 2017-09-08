@@ -19,12 +19,14 @@ cd ${WORKDIR}
 
 echo $SHELL
 
-
-
 #source /usr/share/modules/init/tcsh
 #module use /applis/PSMN/Modules
 #module load Base/psmn
 #module load python/2.7
-		
-python wrap.py LLL DDD nnn 
 
+for((i=0; i<10; i++))
+	do		
+
+	python wrap.py LLL DDD nnn 
+
+	done
