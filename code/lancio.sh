@@ -23,16 +23,12 @@ WORKDIR="/home/pnaldesi/ex_di/code"
 cd ${WORKDIR}
 
 echo $SHELL
-<<<<<<< HEAD
+
 
 #source /usr/share/modules/init/tcsh
 #module use /applis/PSMN/Modules
 #module load Base/psmn
 #module load python/2.7
-=======
-		
-python wrap.py LLL DDD nnn 
->>>>>>> d99b3981551e91d56b5e5968a377c3aaadac6b7b
 
 for((i=0; i<10; i++))
 	do		
