@@ -19,7 +19,7 @@ cd ${WORKDIR}
 echo $SHELL
 <<<<<<< HEAD
 
-for((i=0; i<40; i++))
+for((i=0; i<20; i++))
 	do
 		
 	python wrap.py LLL DDD nnn 
