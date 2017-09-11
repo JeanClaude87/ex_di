@@ -17,6 +17,7 @@ WORKDIR="/home/pnaldesi/ex_di/code"
 cd ${WORKDIR}
 
 echo $SHELL
+<<<<<<< HEAD
 
 for((i=0; i<40; i++))
 	do
@@ -24,3 +25,5 @@ for((i=0; i<40; i++))
 	python wrap.py LLL DDD nnn 
 
 	done
+
+
