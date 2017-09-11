@@ -12,17 +12,15 @@
 
 ###$ -e /dev/null
 #$ -o /dev/null
-
-source /usr/share/modules/init/tcsh
-module use /applis/PSMN/Modules
-module load Base/psmn
-module load python/2.7
-
  
 WORKDIR="/home/pnaldesi/ex_di/code"
 cd ${WORKDIR}
 
 echo $SHELL
-		
-python wrap.py LLL DDD nnn 
 
+for((i=0; i<40; i++))
+	do
+		
+	python wrap.py LLL DDD nnn 
+
+	done

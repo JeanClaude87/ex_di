@@ -302,12 +302,14 @@ def Mat_CdC_Psi0(UU1,Proj_Psi0,Dim,LL,V):
 
 def generate_filename(basename):
 	unix_timestamp = int(time.time())
-	local_time = datetime.fromtimestamp(unix_timestamp)
-	xx = basename + local_time.strftime("%H%M%S") + ".dat"
+	local_time = str(int(round(time.time() * 1000)))
+	xx = basename + local_time + ".dat"
 	if os.path.isfile(xx):
 		time.sleep(1)
 		return generate_filename(basename)
 	return xx
+
+
 
 #..................................................Entropy
 
