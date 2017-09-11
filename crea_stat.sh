@@ -52,7 +52,7 @@ for((i=0; i<$lenl; i++))
 	done	
 
 chmod +x script_wait.sh
-#./script_wait.sh
+./script_wait.sh
 
 
 
