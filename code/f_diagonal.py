@@ -72,18 +72,18 @@ def ExactDiagonalization(PATH_now,L,D,VV,Tab_CdC):
 
 	#.............................NN
 	NN_Conn	   = ff.Mat_CorrConn_Psi0(V,Base_Corr,Proj_Psi0,DensDens)
-	NN_Conn_tr = ff.Trasl_Mean(NN_Conn)
+	#	NN_Conn_tr = ff.Trasl_Mean(NN_Conn)
 
 	nomefile_NN = str('corr_n-')
-	np.savetxt(ff.generate_filename(PATH_now+nomefile_NN), NN_Conn_tr, fmt='%.9f')
+	np.savetxt(ff.generate_filename(PATH_now+nomefile_NN), NN_Conn, fmt='%.9f')
 
 
 	#.............................CiCj
 	CdC    = ff.Mat_CdC_Psi0(Tab_CdC,Proj_Psi0,Dim,LL,V)
-	CdC_tr = ff.Trasl_Mean(CdC)
+	#	CdC_tr = ff.Trasl_Mean(CdC)
 
 	nomefile_cc = str('corr_c-')
-	np.savetxt(ff.generate_filename(PATH_now+nomefile_cc), CdC_tr, fmt='%.9f')
+	np.savetxt(ff.generate_filename(PATH_now+nomefile_cc), CdC, fmt='%.9f')
 
 	return 1
 
