@@ -1,23 +1,13 @@
 #!/bin/bash
+
 rm -f script_wait.sh
-
-#source /usr/share/modules/init/tcsh
-#module use /applis/PSMN/Modules
-#module load Base/psmn
-#module load python/2.7
-
+python setup.py build_ext --inplace
 
 printf "%s\n" "#!/bin/bash" >> script_wait.sh
 
-
-LL=(8 12 16)
-
+LL=(18)
 DD=(1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0 9.0)
-
-
-#(0.5 0.75 1.0 10.0 1.25 1.5 1.75 2.0 2.25 2.5 2.75 3.0 3.25 3.5 3.75 4.0 4.25 4.5 4.75 5.0 5.125 5.25 5.375 5.5 5.625 5.75 5.875 6.0 6.125 6.25 6.375 6.5 6.625 6.75 6.875 7.0 7.25 7.5 7.75 8.0 8.25 8.5 8.75 9.0 9.25 9.5 9.75)
-
-nr=(500 250 50)  #*10
+nr=(1)
 
 lenl=${#LL[@]%.*} 
 lend=${#DD[@]%.*} 
