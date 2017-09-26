@@ -1,13 +1,8 @@
 #!/bin/bash
 
-
-module use /applis/PSMN/Modules
-module load Base/psmn
-module load python/2.7
-
 rm -f script_wait.sh
 rm -f u*
-
+rm -f ../L*
 
 cd code
 	python setup.py build_ext --inplace
@@ -22,7 +17,7 @@ printf "%s\n" "#!/bin/bash" >> script_wait.sh
 LL=(18)
 DD=(1.0) # 2.0 3.0 4.0 5.0 6.0 7.0 8.0 9.0)
 nr=(1)
-
+ncy=1
 
 lenl=${#LL[@]%.*} 
 lend=${#DD[@]%.*} 
@@ -40,7 +35,7 @@ for((i=0; i<$lenl; i++))
 		for((n_real=0; n_real<${nr[i]}; n_real++))
 			do
 		
-			sed -e "s/LLL/$L/g" -e "s/DDD/$D/g" -e "s/nnn/$n_real/g" < code/lancio.sh > temp.tmp
+			sed -e "s/kkk/$ncy/g" -e "s/LLL/$L/g" -e "s/DDD/$D/g" -e "s/nnn/$n_real/g" < code/lancio.sh > temp.tmp
 
 			mv temp.tmp uga-L_$L-D_$D-nr_$n_real.inp 	
 
@@ -51,7 +46,7 @@ for((i=0; i<$lenl; i++))
 	done	
 
 chmod +x script_wait.sh
-./script_wait.sh
+#./script_wait.sh
 
 
 
