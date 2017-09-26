@@ -29,7 +29,8 @@ for((i=0; i<kkk; i++))
 	do
 		
 	python wrap.py LLL DDD nnn 
-
+	python wrap.py LLL DDD nnn 
+	
 	done
 
 
