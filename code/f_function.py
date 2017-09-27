@@ -2,6 +2,7 @@ import numpy as np
 import os.path
 import math
 import scipy.linalg as _la
+from math import factorial
 import itertools
 import time 
 import scipy.special as special
@@ -18,6 +19,14 @@ for index in xrange(len(POPCOUNT_TABLE16)):
 def one_count(v):
 	return (POPCOUNT_TABLE16[ v        & 0xffff] +
 			POPCOUNT_TABLE16[(v >> 16) & 0xffff])
+
+
+#..................................Binomial
+def comb(n, k):
+	kk = factorial(n) / factorial(k) / factorial(n - k)
+	uga= int(kk)
+	return uga
+
 
 #..................................from configuration to bin number
 def TO_bin(xx):
@@ -153,7 +162,6 @@ def Ham_Dense_Creation(LL,NN,Dim,t,V,Dis_real,BC,Base_Bin,Base_Num,Hop_Bin,LinTa
 			bra = LinLook(Base_Bin[i],LL,LinTab)
 			
 			if one_count(xx) == NN:
-			#if bin(xx).count("1") == NN:
 				ham[bra,ket] = t
 	
 			uu = Base_Bin[i] & Hop_Bin[j]
@@ -231,7 +239,7 @@ def Mat_Corr_MiCa(A,B):
 #..................................................CdiCj
 
 def prep_tab(L):
-	Dim = int(special.binom(L,L/2))
+	Dim = comb(L, L/2)
 
 	Base_Num = Base_prep(L,L/2)
 	Base_Bin = [int(Base_Num [i],2) for i in range(Dim)]
@@ -242,7 +250,7 @@ def prep_tab(L):
 	return CdC_Tab
 
 def CdC_tabCreation (LL,NN,Dim,Base_Num,Base_Bin,LinTab):
-	dimCiCj =  int(special.binom(LL-2,NN-1))
+	dimCiCj =  comb(LL-2, NN-1)
 	CdC_Tab  =  np.zeros((LL,LL,dimCiCj,2), dtype=int)
 	
 	for i in range(LL):

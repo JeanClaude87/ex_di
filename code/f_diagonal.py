@@ -2,7 +2,6 @@ import numpy as np
 import time 
 import scipy.special as special
 import f_function as ff
-from scipy.special import comb
 
 def ExactDiagonalization(PATH_now,L,D,VV,Tab_CdC):
 
@@ -17,13 +16,13 @@ def ExactDiagonalization(PATH_now,L,D,VV,Tab_CdC):
 	#V		= 2.
 	#..................................................disorder parameters
 	#...................dis_gen=0 random, dis_gen=1 quasiperiodic
-	Dis_gen = 0
+	Dis_gen = 1
 	#..................................................Supspace dimension
 	LL = int(float(L))
 	DD = float(D)
 
 	NN  = int(LL/2)
-	Dim = comb(LL, NN, exact=True)
+	Dim = ff.comb(LL, NN)
 
 	#..................................................Base creation
 	Base_Num = ff.Base_prep(LL,NN)
@@ -48,6 +47,8 @@ def ExactDiagonalization(PATH_now,L,D,VV,Tab_CdC):
 	#.............................Diagonalization HAM
 	HAM   = ff.Ham_Dense_Creation(LL,NN,Dim,t,VV,Dis_real,BC,Base_Bin,Base_Num,Hop_Bin,LinTab)
 	E,V   = ff.eigval(HAM)	
+
+	print E
 
 	#V[Psi0] proiezioni
 	#V[:,Psi0] autovettori
