@@ -67,14 +67,14 @@ def Hop_prep(L,BC):
 
 
 #..................................................Disorder creation
-def Dis_Creation(D,LL,Dis_gen):
+def Dis_Creation(LL,Dis_gen):
 
 	dis = np.zeros(LL, dtype=np.float)
 	for i in range(LL):
 		if Dis_gen==0: 
-			dis[i] = D*(2*np.random.random()-1)
+			dis[i] = 2*np.random.random()-1
 		else:
-			dis[i] = D*np.cos(2*math.pi*0.721*i/LL)
+			dis[i] = np.cos(2*math.pi*0.721*i/LL)
 	return dis
 
 
@@ -144,7 +144,7 @@ def LinLook_RR(vec,arr):
 
 
 #..................................................Hamiltonian Creation
-def Ham_Dense_Creation(LL,NN,Dim,t,V,Dis_real,BC,Base_Bin,Base_Num,Hop_Bin,LinTab):
+def Ham_Dense_Creation(LL,NN,Dim,t,V,D,Dis_real,BC,Base_Bin,Base_Num,Hop_Bin,LinTab):
 
 	ham = np.zeros((Dim,Dim), dtype=np.float)
 
@@ -156,26 +156,34 @@ def Ham_Dense_Creation(LL,NN,Dim,t,V,Dis_real,BC,Base_Bin,Base_Num,Hop_Bin,LinTa
 	for i in range(Dim):
 		n_int = 0.0
 		n_dis = 0.0
+		bra = LinLook(Base_Bin[i],LL,LinTab)
+
 		for j in range(Hop_dim):
 			xx  = Base_Bin[i]^Hop_Bin[j]
 			ket = LinLook(xx,LL,LinTab)
-			bra = LinLook(Base_Bin[i],LL,LinTab)
 			
 			if one_count(xx) == NN:
-				ham[bra,ket] = t
-	
+				ham[bra,ket] = t/2
+				#ham[bra,ket] = t 
 			uu = Base_Bin[i] & Hop_Bin[j]
-			if uu == Hop_Bin[j]:
-				n_int += 1.0
-				pp=1
-			n_ones = Base_Bin[i] & int(2**(LL-j-1))
+			
+			if one_count(uu) == 1:
+				n_int -= 0.25
+			else: 
+				n_int += 0.25
+			
+			#print TO_con(Base_Bin[i],LL), TO_con(Hop_Bin[j],LL), TO_con(uu,LL), one_count(uu), n_int
+
+			n_ones = Base_Bin[i] & int(2**(LL-j-1)) 
+			#diventa diverso da zero solamente se ce un 1 in quel sito
 			if n_ones != 0:
-				n_dis += Dis_real[j]
+				n_dis += 0.5*Dis_real[j]
 			else:
-				n_dis -= Dis_real[j]
+				n_dis -= 0.5*Dis_real[j]
 
-		ham[bra,bra] = n_dis/2.+V*(n_int-LL/4.)
-
+		#ham[bra,bra] = n_dis/2.+V*(n_int-LL/4.)
+		ham[bra,bra] = t*(n_int + D*n_dis)
+		#print TO_con(bra,LL), n_int
 	return ham
 
 
@@ -184,6 +192,13 @@ def eigval(A):
 	E = _la.eigh(A)
 	return E
 
+#..................................................Hamiltonian Dense Diagonalization
+def levstat(E,Dim):
+	gap=E[1:]-E[:-1]
+	B = np.zeros(Dim-2, dtype=np.float)
+	for i in range(Dim-2):
+		B[i]=np.minimum(gap[i+1],gap[i])/np.maximum(gap[i+1],gap[i])	
+	return B
 
 #..................................................Hamiltonian Sparse Diagonalization
 def eigsh(A,n):
@@ -191,7 +206,7 @@ def eigsh(A,n):
 	return E
 
 #..................................................Initial state
-def Psi_0(Dim,arr,LL,LinTab):
+def Psi_0(Dim):
 	n = np.random.randint(0,Dim-1)
 	return n
 

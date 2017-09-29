@@ -12,11 +12,12 @@ def ExactDiagonalization(PATH_now,L,D,VV,Tab_CdC):
 	#...................BC=0 periodic, BC=1 open
 	BC		= 0				
 	#..................................................hopping & interactions
-	t		= -1.
+	t		= 1.0
 	#V		= 2.
 	#..................................................disorder parameters
 	#...................dis_gen=0 random, dis_gen=1 quasiperiodic
 	Dis_gen = 1
+
 	#..................................................Supspace dimension
 	LL = int(float(L))
 	DD = float(D)
@@ -41,20 +42,33 @@ def ExactDiagonalization(PATH_now,L,D,VV,Tab_CdC):
 	LinTab = ff.LinTab_Creation(LL,Base_Num,Dim)
 
 	#.............................Disorder creation
-	Dis_real = ff.Dis_Creation(DD,LL,Dis_gen)
-
+	Dis_real = ff.Dis_Creation(LL,Dis_gen)
 
 	#.............................Diagonalization HAM
-	HAM   = ff.Ham_Dense_Creation(LL,NN,Dim,t,VV,Dis_real,BC,Base_Bin,Base_Num,Hop_Bin,LinTab)
+	HAM   = ff.Ham_Dense_Creation(LL,NN,Dim,t,VV,DD,Dis_real,BC,Base_Bin,Base_Num,Hop_Bin,LinTab)
+	#print HAM
+
 	E,V   = ff.eigval(HAM)	
+
+#	levst = ff.levstat(E,Dim)
 
 	print E
 
+
+#	m_levst = np.mean(levst)
+
+#	nomefile_ent = str(PATH_now+'levst-')
+#	with open(ff.generate_filename(nomefile_ent), 'a') as ee:
+#		ee.write('%f' % m_levst)
+
+
+
+	'''
 	#V[Psi0] proiezioni
 	#V[:,Psi0] autovettori
 
 	#.............................Initial state
-	Psi0		= ff.Psi_0(Dim,Base_Bin,LL,LinTab)
+	Psi0		= ff.Psi_0(Dim)
 	Proj_Psi0   = ff.Proj_Psi0(Psi0,V)
 
 
@@ -72,11 +86,14 @@ def ExactDiagonalization(PATH_now,L,D,VV,Tab_CdC):
 	DensDens	= ff.OUTER_creation(LL,Dim,Dens)
 
 	#.............................NN
-	NN_Conn	   = ff.Mat_CorrConn_Psi0(V,Base_Corr,Proj_Psi0,DensDens)
-	#	NN_Conn_tr = ff.Trasl_Mean(NN_Conn)
+	NN			= ff.Mat_Corr_Psi0(V,Base_Corr,Proj_Psi0)
+	NN_Conn	= ff.Mat_CorrConn_Psi0(V,Base_Corr,Proj_Psi0,DensDens)
+	
+	#NN_Conn_tr = ff.Trasl_Mean(NN_Conn)
 
 	nomefile_NN = str('corr_n-')
 	np.savetxt(ff.generate_filename(PATH_now+nomefile_NN), NN_Conn, fmt='%.9f')
+
 
 
 	#.............................CiCj
@@ -85,7 +102,7 @@ def ExactDiagonalization(PATH_now,L,D,VV,Tab_CdC):
 
 	nomefile_cc = str('corr_c-')
 	np.savetxt(ff.generate_filename(PATH_now+nomefile_cc), CdC, fmt='%.9f')
-
+	'''
 	return 1
 
 
