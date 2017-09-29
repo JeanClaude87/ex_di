@@ -144,7 +144,10 @@ def LinLook_RR(vec,arr):
 
 
 #..................................................Hamiltonian Creation
-def Ham_Dense_Creation(LL,NN,Dim,t,V,D,Dis_real,BC,Base_Bin,Base_Num,Hop_Bin,LinTab):
+def Ham_Dense_Creation(LL,NN,Dim,D,Dis_real,BC,Base_Bin,Base_Num,Hop_Bin,LinTab):
+
+	t=1	
+	# tutto in unita di t!!
 
 	ham = np.zeros((Dim,Dim), dtype=np.float)
 
@@ -169,6 +172,7 @@ def Ham_Dense_Creation(LL,NN,Dim,t,V,D,Dis_real,BC,Base_Bin,Base_Num,Hop_Bin,Lin
 			
 			if one_count(uu) == 1:
 				n_int -= 0.25
+				#0.5 perche spin 1/2*1/2
 			else: 
 				n_int += 0.25
 			
@@ -178,10 +182,10 @@ def Ham_Dense_Creation(LL,NN,Dim,t,V,D,Dis_real,BC,Base_Bin,Base_Num,Hop_Bin,Lin
 			#diventa diverso da zero solamente se ce un 1 in quel sito
 			if n_ones != 0:
 				n_dis += 0.5*Dis_real[j]
+				#0.5 perche spin 1/2
 			else:
 				n_dis -= 0.5*Dis_real[j]
 
-		#ham[bra,bra] = n_dis/2.+V*(n_int-LL/4.)
 		ham[bra,bra] = t*(n_int + D*n_dis)
 		#print TO_con(bra,LL), n_int
 	return ham

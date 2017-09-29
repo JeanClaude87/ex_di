@@ -3,7 +3,7 @@ import time
 import scipy.special as special
 import f_function as ff
 
-def ExactDiagonalization(PATH_now,L,D,VV,Tab_CdC):
+def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 
 	#here LL is the number L is the string
 
@@ -12,8 +12,7 @@ def ExactDiagonalization(PATH_now,L,D,VV,Tab_CdC):
 	#...................BC=0 periodic, BC=1 open
 	BC		= 0				
 	#..................................................hopping & interactions
-	t		= 1.0
-	#V		= 2.
+	#t		= 1.0
 	#..................................................disorder parameters
 	#...................dis_gen=0 random, dis_gen=1 quasiperiodic
 	Dis_gen = 1
@@ -45,21 +44,19 @@ def ExactDiagonalization(PATH_now,L,D,VV,Tab_CdC):
 	Dis_real = ff.Dis_Creation(LL,Dis_gen)
 
 	#.............................Diagonalization HAM
-	HAM   = ff.Ham_Dense_Creation(LL,NN,Dim,t,VV,DD,Dis_real,BC,Base_Bin,Base_Num,Hop_Bin,LinTab)
+	HAM   = ff.Ham_Dense_Creation(LL,NN,Dim,DD,Dis_real,BC,Base_Bin,Base_Num,Hop_Bin,LinTab)
 	#print HAM
 
 	E,V   = ff.eigval(HAM)	
 
-#	levst = ff.levstat(E,Dim)
-
-	print E
 
 
-#	m_levst = np.mean(levst)
+	levst = ff.levstat(E,Dim)
+	m_levst = np.mean(levst)
 
-#	nomefile_ent = str(PATH_now+'levst-')
-#	with open(ff.generate_filename(nomefile_ent), 'a') as ee:
-#		ee.write('%f' % m_levst)
+	nomefile_ent = str(PATH_now+'levst-')
+	with open(ff.generate_filename(nomefile_ent), 'a') as ee:
+		ee.write('%f' % m_levst)
 
 
 
