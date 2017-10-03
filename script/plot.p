@@ -10,14 +10,16 @@ set style line 2 lt 1 lw 5 pt 1 ps 2 lc rgb 'red'
 unset key
 set yrange [0:0.05]
 
-f(x) = a*( exp(-x/b) + exp((x-L)/b))
 
 set fit errorvariables
 
 
 
-DD = "0.5 0.25 0.75 1.0 1.5 1.25 1.75 2.0 2.5 2.25 2.75 3.0 3.5 3.25 3.75 4.0 4.5 4.25 4.75 5.0 5.5 5.25 5.75 6.0 6.5 7.0 7.5 8.0 8.5 9.0"
-names = "SpSm" #SzSz_DE SzSz_DE_t SzSz_Huse_t SzSz_Huse SzSz_P"
+DD = "0.25 0.5 0.75 1.0 1.25 1.5 1.75 2.0 2.25 2.5 2.75 3.0 3.25 3.5 3.75 4.0 4.25 4.5 4.75 5.0 5.25 5.5 5.75 6.0 6.5 7.0 7.5 8.0 8.5 9.0"
+#names = "SpSm" 
+names = "SzSz_DE" 
+#names = "SzSz_Huse" 
+#names = "SzSz_P"
 
 do for [i=1:words(names)] {
 
@@ -25,7 +27,7 @@ Nam = word(names, i)
 
 do for [L=8:16:2] {
 
-l=3
+l=2
 
 fitfile = sprintf('../plot/dati_fit/%s/L_%.0f.dat',Nam, L)
 
@@ -41,21 +43,21 @@ infile  = 	sprintf('../medie/%s/L_%.0f/D_%s.dat',Nam, L,D)
 
  set output	outfile
 
-#	b=1.5
- 		
- 	fit [l-1:L-l] f(x) infile u 1:(abs($2)):3 yerrors  via a, b	
+	b=1
+	a=0.1
 
-	a=1
- 		
- 	fit [l-1:L-l] f(x) infile u 1:(abs($2)):3 yerrors  via a, b	
+	f(x) = a*( exp(-x/abs(b)) + exp((x-L)/abs(b)))
 
- 	print D, '  ', b, '  ', b_err
+ 	fit [l-1:L-l] log(f(x)) infile u 1:(log(abs($2))):3 yerrors  via a, b
+ 	fit [l-1:L-l] log(f(x)) infile u 1:(log(abs($2))):3 yerrors  via a, b			
+
+	print D, '  ', abs(b), '  ', b_err
 	
+	set yrange[*:*]
  	plot 	infile u 1:(abs($2)) w lp ls 1, infile u 1:(abs($2)):3 w errorbars ls 1, f(x) ls 2
 		
  set output
 
- 
  
  }}}
   
