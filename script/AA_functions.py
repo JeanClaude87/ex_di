@@ -80,9 +80,10 @@ def medie_matrices(directory,namesCO,namesFO):
 						data_trs = Trasl_Mean(data)
 						data_trs[data_trs == -inf] = -25
 						DataFrame[j] = data_trs
-
+			#print [DataFrame]
 			mean0 = np.mean(DataFrame, axis=0)
 			mean  = np.append(mean0,mean0[0])
+			#print mean0
 			std0  = np.std(DataFrame, axis=0)
 			std   = np.append(std0,std0[0])
 
