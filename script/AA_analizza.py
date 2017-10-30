@@ -5,10 +5,6 @@ import re
 import time
 import os as os
 
-
-import matplotlib.pyplot as plt
-from scipy.optimize import curve_fit
-
 import AA_functions as ff
 
 names_Corr_files = ['corr_c'] #,'corr_H'   ,'corr_H_t'   ,'corr_DE','corr_DE_t','corr_P']
