@@ -83,7 +83,8 @@ def medie_matrices(i,namesCO,namesFO,numCO):
 					print files[j]
 					os.rename(files[j], "../strange_files/"+re.split('/', files[j])[-1])
 				else:
-					data_trs = Trasl_Mean(np.absolute(data))
+					absdata = np.absolute(data)
+					data_trs = Trasl_Mean(absdata)
 					DataFrame[j] = data_trs
 
 		else:
