@@ -19,7 +19,7 @@ if not os.path.exists("../strange_files/"):
 if not os.path.exists("../plot/dati_fit"):
         os.makedirs("../plot/dati_fit")
 
-print len(directory)
+#print len(directory)
 
 comm = MPI.COMM_WORLD
 size = comm.Get_size()
