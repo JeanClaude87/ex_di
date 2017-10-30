@@ -17,6 +17,9 @@ names_Corr_folds = ['SpSm'  ,'SzSz_Huse','SzSz_Huse_t','SzSz_DE','SzSz_DE_t','Sz
 
 directory = glob('../dati/*/*/')
 
+print directory
+
+
 if not os.path.exists("../strange_files/"):
 		os.makedirs("../strange_files/")
 
