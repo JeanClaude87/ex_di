@@ -17,7 +17,7 @@ module load Python/2.7.13
 ###$ -e /dev/null
 ###$ -o /dev/null
  
-WORKDIR="/home/pnaldesi/ex_di/code"
+WORKDIR="/home/pnaldesi/exact_di/ex_di"
 cd ${WORKDIR}
 
 echo $SHELL
