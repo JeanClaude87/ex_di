@@ -11,6 +11,7 @@ import os as os
 from glob import glob
 from numpy import inf
 import re
+import fnmatch
 
 
 #..................................................Traslations MEAN
@@ -30,6 +31,14 @@ def generate_filename(basename):
 		time.sleep(1)
 		return generate_filename(basename)
 	return xx		
+
+#..................................................FindName
+def find_files(directory, pattern):
+    for root, dirs, files in os.walk(directory):
+        for basename in files:
+            if fnmatch.fnmatch(basename, pattern):
+                filename = os.path.join(root, basename)
+                return filename
 
 
 #..................................................MEAN of FILES

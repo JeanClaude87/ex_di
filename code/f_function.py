@@ -13,7 +13,7 @@ import time
 
 #..................................counting number of zero
 POPCOUNT_TABLE16 = [0] * 2**16
-for index in xrange(len(POPCOUNT_TABLE16)):
+for index in range(len(POPCOUNT_TABLE16)):
 	POPCOUNT_TABLE16[index] = (index & 1) + POPCOUNT_TABLE16[index >> 1]
 
 def one_count(v):
@@ -34,7 +34,9 @@ def TO_bin(xx):
 
 #..................................from bin number to configuration
 def TO_con(x,L):
-	return np.binary_repr(x, width=L)
+	x1=int(x)
+	L1=int(L)
+	return np.binary_repr(x1, width=L1)
 
 
 #..................................base preparation
@@ -79,22 +81,25 @@ def Dis_Creation(LL,Dis_gen):
 
 
 #..................................creation Lin Tables
-def LinTab_Creation(L,Base,Dim):
+def LinTab_Creation(LL,Base,di):
+
+	L = int(LL)
+	Dim=int(di)
 
 #..........................Table Creation
-	MaxSizeLINVEC = sum([2**(i-1) for i in range(1,L/2+1)])
+	MaxSizeLINVEC = sum([2**(i-1) for i in range(1,int(L/2+1))])
 
 	#....creates a table LinTab_L+LinTab_R
 	#.....................[  ,  ]+[  ,  ]
-	LinTab = np.zeros((MaxSizeLINVEC+1,4),dtype=int)
-	Jold=JJ=j1=j2=0
-	Conf_old= TO_con(0,L/2)
+	LinTab   = np.zeros((MaxSizeLINVEC+1,4),dtype=int)
+	Jold     = JJ=j1=j2=0
+	Conf_old = TO_con(0,int(L/2))
 
 #...........................Table Filling
 	for i in range(Dim):
-		Conf_lx = Base[i][0:L/2]
+		Conf_lx = Base[i][0:int(L/2)]
 		Bin_lx  = TO_bin(Conf_lx)
-		Conf_rx = Base[i][L/2:L]		
+		Conf_rx = Base[i][int(L/2):L]		
 		Bin_rx  = TO_bin(Conf_rx)
 
 		if Conf_lx==Conf_old:
@@ -125,8 +130,8 @@ def LinTab_Creation(L,Base,Dim):
 def LinLook(vec,LL,arr):
 
 	Vec  = TO_con(vec,LL)
-	v1	 = Vec[0:LL/2]
-	v2	 = Vec[LL/2:LL]
+	v1	 = Vec[0:int(LL/2)]
+	v2	 = Vec[int(LL/2):LL]
 	ind1 = TO_bin(v1)
 	ind2 = TO_bin(v2)
 	return arr[ind1,1]+arr[ind2,3]-1
@@ -211,11 +216,12 @@ def eigsh(A,n):
 
 #..................................................Initial state
 def Psi_0(Dim):
-	n = np.random.randint(0,Dim-1)
+	#n = np.random.randint(0,Dim-1)
+	n = 0
 	return n
 
 def Proj_Psi0(a,V):
-	return V[a]**2
+	return V[a]
 
 
 #..................................................Traslations MEAN
@@ -226,7 +232,18 @@ def Trasl_Mean(A):
 		B[i] = np.roll(A[i],-i)
 	return np.mean(B, axis=0)
 
+#..................................................dens
+def density(V,Base_NumRes):
+	den   = np.dot(np.transpose(V**2),Base_NumRes)
+	#equivalente a fare:
+	#dens = np.einsum('jn,jn,ji -> ni', V, V, Base_NumRes)
+	return den
 
+def density_t(Pro,V,BDens):
+	den = np.einsum('i,ij,jk-> k', Pro, V, BDens)
+
+	#np.dot(np.transpose(V**2),Base_NumRes)
+	return den
 
 #..................................................NiNj
 def OUTER_creation(L,Dim,A):
@@ -278,13 +295,13 @@ def SzSz_con_DE(A,B,C):
 #..................................................CdiCj
 
 def prep_tab(L):
-	Dim = comb(L, L/2)
+	Dim = comb(L, int(L/2))
 
-	Base_Num = Base_prep(L,L/2)
+	Base_Num = Base_prep(L,int(L/2))
 	Base_Bin = [int(Base_Num [i],2) for i in range(Dim)]
 	LinTab   = LinTab_Creation(L,Base_Num,Dim)
 
-	CdC_Tab  = CdC_tabCreation (L,L/2,Dim,Base_Num,Base_Bin,LinTab)
+	CdC_Tab  = CdC_tabCreation (L,int(L/2),Dim,Base_Num,Base_Bin,LinTab)
 
 	return CdC_Tab
 
@@ -356,18 +373,36 @@ def generate_filename(basename):
 		return generate_filename(basename)
 	return xx
 
-
+#..................................................Traslations MEAN
+def Trasl_Mean(A):
+	a = A.shape
+	B = np.zeros((a[1],a[1]), dtype=np.float)
+	for i in range(a[1]):
+		B[i] = np.roll(A[i],-i)
+	return np.mean(B, axis=0)
 
 #..................................................Entropy
 
 #..................................................Time - Evolution
 
-def Proj_t(t,Proj_Psi0,E):
-	xx = Proj_Psi0*np.exp(-1j*E*t)
+def Proj_t(t,Psi0,E,LL):
+
+	xx = Psi*np.exp(-1j*E*t)
 	return xx
 
+def Corr_Evolution(Proj_Psi0,E,V,t,Base_NumRes,Base_Corr):
+	Pro_t0 = Proj_Psi0 
+	#c'era un V di troppo::: np.einsum('i,ki-> k', Proj_Psi0, V)
 
+	Pro_t  = np.outer(Pro_t0*np.exp(1j*E*t),Pro_t0*np.exp(-1j*E*t))
 
+	dens_t 	   = np.real(np.einsum('nm,jn,jm,ji -> i', Pro_t, V, V, Base_NumRes))
+	corr_t 	   = np.real(np.einsum('nm,jn,jm,jli -> li', Pro_t, V, V, Base_Corr))
+	corr_con_t = np.real(corr_t - np.outer(dens_t,dens_t))
+
+	corr_con_t_AVER = Trasl_Mean(corr_con_t)
+
+	return dens_t,corr_t,corr_con_t_AVER
 
 
 

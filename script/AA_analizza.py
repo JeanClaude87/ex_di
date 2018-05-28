@@ -14,10 +14,10 @@ names_Corr_folds = ['SpSm'  ] #,'SzSz_Huse','SzSz_Huse_t','SzSz_DE','SzSz_DE_t',
 directory = sorted(glob('../dati/*/*/'))
 
 if not os.path.exists("../strange_files/"):
-                os.makedirs("../strange_files/")
+	os.makedirs("../strange_files/")
 
 if not os.path.exists("../plot/dati_fit"):
-        os.makedirs("../plot/dati_fit")
+	os.makedirs("../plot/dati_fit")
 
 #print len(directory)
 
