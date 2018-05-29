@@ -216,8 +216,8 @@ def eigsh(A,n):
 
 #..................................................Initial state
 def Psi_0(Dim):
-	#n = np.random.randint(0,Dim-1)
-	n = 0
+	n = np.random.randint(0,Dim-1)
+	#n = 0
 	return n
 
 def Proj_Psi0(a,V):

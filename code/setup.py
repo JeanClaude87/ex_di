@@ -5,7 +5,4 @@ setup(
 	ext_modules = cythonize('f*.py')
 )
 
-
-
-
 # python setup.py build_ext --inplace

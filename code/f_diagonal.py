@@ -145,31 +145,44 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 	t_tab = ff.time_tab(t_i,t_f,Nstep,Lo_li)
 
 	####...........properties
-
-	nomef_corr_con_t = ff.generate_filename(PATH_now+str('corr_con_t-'))
-	nomef_dens_t     = ff.generate_filename(PATH_now+str('dens_t-'))
-
-		
-	np.set_printoptions(precision=6)
-
-	#dens_tab = ff.Corr_Evolution(Proj_Psi0,E,V,t_tab[t],Base_NumRes,Base_Corr)[1]
-
 	L_tab = [int(j) for j in range(LL)]
 
 	for t in range(Nstep+1):	
 
+		Den,Cor,CorCon = ff.Corr_Evolution(Proj_Psi0,E,V,t_tab[t],Base_NumRes,Base_Corr)
+
+	#....correlations
 		C = np.empty((3,LL),dtype=float)
 
 		C[0] = [t_tab[t] for j in range(LL)]
 		C[1] = L_tab
-		C[2] = ff.Corr_Evolution(Proj_Psi0,E,V,t_tab[t],Base_NumRes,Base_Corr)[2]
+		C[2] = CorCon
 
 		if t == 0:
 			C_tot = np.transpose(C)
 		else:		
 			C_tot = np.concatenate((C_tot,np.transpose(C)),axis=0)
 
+	#....density
+		D = np.empty((3,LL),dtype=float)
+
+		D[0] = [t_tab[t] for j in range(LL)]
+		D[1] = L_tab
+		D[2] = Den
+
+		if t == 0:
+			D_tot = np.transpose(D)
+		else:		
+			D_tot = np.concatenate((D_tot,np.transpose(D)),axis=0)
+
+
+	nomef_corr_con_t = ff.generate_filename(PATH_now+str('corr_con_t-'))
+	nomef_dens_t     = ff.generate_filename(PATH_now+str('dens_t-'))
+
+	np.set_printoptions(precision=8)
+
 	np.savetxt(nomef_corr_con_t, C_tot , fmt='%1.3f')
+	np.savetxt(nomef_dens_t, D_tot , fmt='%1.3f')	
 
 	return 1
 
