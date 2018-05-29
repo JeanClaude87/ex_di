@@ -5,7 +5,7 @@
 
 ### parallel environment & nb cpu (NSLOTS)
 
-###$ -pe mpi16_debian
+###$ -pe mpi16_debian 16
 
 #$ -q "h6-E5-2667v4deb128,h48-E5-2667v2deb128"
 
