@@ -16,7 +16,7 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 	BC		= 0				
 	#..................................................disorder parameters
 	#...................dis_gen=0 random, dis_gen=1 quasiperiodic
-	Dis_gen = 1
+	Dis_gen = 0
 
 	#..................................................Supspace dimension
 	LL = int(L)
