@@ -385,11 +385,6 @@ def Trasl_Mean(A):
 
 #..................................................Time - Evolution
 
-def Proj_t(t,Psi0,E,LL):
-
-	xx = Psi*np.exp(-1j*E*t)
-	return xx
-
 def Corr_Evolution(Proj_Psi0,E,V,t,Base_NumRes,Base_Corr):
 	Pro_t0 = Proj_Psi0 
 	#c'era un V di troppo::: np.einsum('i,ki-> k', Proj_Psi0, V)
