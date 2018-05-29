@@ -143,6 +143,7 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 	Lo_li = 1
 
 	t_tab = ff.time_tab(t_i,t_f,Nstep,Lo_li)
+	print(t_tab)
 
 	####...........properties
 	L_tab = [int(j) for j in range(LL)]
@@ -154,7 +155,7 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 	#....correlations
 		C = np.empty((3,LL),dtype=float)
 
-		C[0] = [t_tab[t] for j in range(LL)]
+		C[0] = [float(t_tab[t]) for j in range(LL)]
 		C[1] = L_tab
 		C[2] = CorCon
 
@@ -166,7 +167,7 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 	#....density
 		D = np.empty((3,LL),dtype=float)
 
-		D[0] = [t_tab[t] for j in range(LL)]
+		D[0] = [float(t_tab[t]) for j in range(LL)]
 		D[1] = L_tab
 		D[2] = Den
 
@@ -179,10 +180,8 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 	nomef_corr_con_t = ff.generate_filename(PATH_now+str('corr_con_t-'))
 	nomef_dens_t     = ff.generate_filename(PATH_now+str('dens_t-'))
 
-	np.set_printoptions(precision=8)
-
-	np.savetxt(nomef_corr_con_t, C_tot , fmt='%1.3f')
-	np.savetxt(nomef_dens_t, D_tot , fmt='%1.3f')	
+	np.savetxt(nomef_corr_con_t, C_tot , fmt='%1.10f')
+	np.savetxt(nomef_dens_t, D_tot ,     fmt='%1.10f')	
 
 	return 1
 
