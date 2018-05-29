@@ -9,7 +9,7 @@
 
 #$ -q "E5-2667v4deb128nl,E5-2667v4deb256A,E5-2670deb128A"
 
-module load Python/2.7.13
+module load Python/3.6.1
 
 ### exporter les variables d'environnement sur tous les noeuds d'execution
 #$ -V
@@ -26,7 +26,8 @@ for((i=0; i<kkk; i++))
 	do
 	for((j=0; j<20; j++))
 		do		
-	python wrap.py LLL DDD nnn
+			python wrap.py LLL DDD nnn
+			wait
 		done
 	done
 
