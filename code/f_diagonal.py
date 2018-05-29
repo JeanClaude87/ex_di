@@ -44,8 +44,6 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 	#.............................Disorder creation
 	Dis_real = ff.Dis_Creation(LL,Dis_gen)
 
-	print(DD*Dis_real)
-
 	#.............................Diagonalization HAM
 	HAM   = ff.Ham_Dense_Creation(LL,NN,Dim,DD,Dis_real,BC,Base_Bin,Base_Num,Hop_Bin,LinTab)
 	#print HAM
@@ -136,32 +134,42 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 
 	#.............................Evolution
 
+	####...........t_i deve essere maggiore di 1
+	t_i   = 1.0 
+	t_f   = 1000.0
+	Nstep = 1000
+
 	#if 0 linear, 1 log
+	Lo_li = 1
 
-	Lo_Li = 0 
+	t_tab = ff.time_tab(t_i,t_f,Nstep,Lo_li)
 
-	t_i		= 0
-	t_f		= 1.0
-	t_step 	= 0.1
+	####...........properties
 
-	t_tab = np.arange(t_i,t_f,t_step)
+	nomef_corr_con_t = ff.generate_filename(PATH_now+str('corr_con_t-'))
+	nomef_dens_t     = ff.generate_filename(PATH_now+str('dens_t-'))
 
+		
+	np.set_printoptions(precision=6)
 
-	t_Nstep  = t_tab.shape[0]
-#	corr_tab = np.zeros((t_Nstep,LL,LL), dtype=np.float)
-	
-#	corr_tab = [ff.Corr_Evolution(Proj_Psi0,E,V,t,Base_NumRes,Base_Corr)[2] for t in t_tab]
-	
-	i=0
-	for t in range(t_Nstep):
-		corr_tab = ff.Corr_Evolution(Proj_Psi0,E,V,t_tab[t],Base_NumRes,Base_Corr)[0]
-		print("t=",t_tab[t])
-		print(corr_tab)
+	#dens_tab = ff.Corr_Evolution(Proj_Psi0,E,V,t_tab[t],Base_NumRes,Base_Corr)[1]
 
-		i+=1
+	L_tab = [int(j) for j in range(LL)]
 
-	nomef_corr_con_t	= str('corr_con_t-')
-	#np.savetxt(ff.generate_filename(PATH_now+nomef_corr_con_t), corr_tab, fmt='%.9f')
+	for t in range(Nstep+1):	
+
+		C = np.empty((3,LL),dtype=float)
+
+		C[0] = [t_tab[t] for j in range(LL)]
+		C[1] = L_tab
+		C[2] = ff.Corr_Evolution(Proj_Psi0,E,V,t_tab[t],Base_NumRes,Base_Corr)[2]
+
+		if t == 0:
+			C_tot = np.transpose(C)
+		else:		
+			C_tot = np.concatenate((C_tot,np.transpose(C)),axis=0)
+
+	np.savetxt(nomef_corr_con_t, C_tot , fmt='%1.3f')
 
 	return 1
 
