@@ -58,8 +58,9 @@ for i in L_tab:
 		
 		for n in range(NN_RR[n0]):
 			data = [i,j,n+1]
-
+			print(time.clock())
 			diagonal.ExactDiagonalization(PATH_now,data[0],data[1],Tab_CdC)
+			print(time.clock())
 			#def 	 ExactDiagonalization(PATH_now,   L,     D,    Tab_CdC):			
 	n0 += 1
 
