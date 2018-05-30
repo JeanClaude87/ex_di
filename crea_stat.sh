@@ -5,12 +5,8 @@ rm -f ../L*
 
 
 cd code
-<<<<<<< HEAD
-        python setup.py build_ext --inplace
-=======
        python setup.py build_ext --inplace
->>>>>>> 4bcb7c1298203f5c88eba2ec1b31cc3bcc2a4d14
-        wait    
+    wait    
 # rm -rf *so *c *build *core __pycache__
 cd ..
 
