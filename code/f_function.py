@@ -399,13 +399,4 @@ def Corr_Evolution(Proj_Psi0,E,V,t,Base_NumRes,Base_Corr):
 
 	return dens_t,corr_t,corr_con_t_AVER
 
-def time_tab(t_i,t_f,Nstep,Lo_li):
-	
-	if Lo_li == 0:
-		t_tab = np.insert(10**-5,1,np.linspace(t_i,t_f, num=Nstep, dtype=float))
-	else:
-		t_tab = np.insert(10**-5,1,np.logspace(np.log10(t_i),np.log10(t_f), num=Nstep, dtype=float))
-
-	return t_tab
-
 
