@@ -161,10 +161,10 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 
 	for t in range(Nstep+1):	
 
-		print(time.time()*1000000.0)
+		
 		Den,Cor,CorCon = ff.Corr_Evolution(Proj_Psi0,E,V,t_tab[t],Base_NumRes,Base_Corr)
 
-		print(time.time()*1000000.0)
+	
 
 	#....correlations
 		C = np.empty((3,LL),dtype=float)
@@ -190,7 +190,7 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 		else:		
 			D_tot = np.concatenate((D_tot,np.transpose(D)),axis=0)
 
-		print(time.time()*1000000.0)
+
 
 	nomef_corr_con_t = ff.generate_filename(PATH_now+str('corr_con_t-'))
 	nomef_dens_t     = ff.generate_filename(PATH_now+str('dens_t-'))
