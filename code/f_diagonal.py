@@ -167,7 +167,7 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 	#....density
 		D = np.empty((3,LL),dtype=float)
 
-		D[0] = [float(t_tab[t]) for j in range(LL)]
+		D[0] = [t_tab[t] for j in range(LL)]
 		D[1] = L_tab
 		D[2] = Den
 
