@@ -134,6 +134,15 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 
 	#.............................Evolution
 
+def time_tab(t_i,t_f,Nstep,Lo_li):
+	
+	if Lo_li == 0:
+		t_tab = np.insert(10**-5,1,np.linspace(t_i,t_f, num=Nstep, dtype=float))
+	else:
+		t_tab = np.insert(10**-5,1,np.logspace(np.log10(t_i),np.log10(t_f), num=Nstep, dtype=float))
+
+	return t_tab
+
 	####...........t_i deve essere maggiore di 1
 	t_i   = float(1.0) 
 	t_f   = float(1000.0)
