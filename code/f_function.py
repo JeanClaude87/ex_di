@@ -406,6 +406,6 @@ def time_tab(t_i,t_f,Nstep,Lo_li):
 	else:
 		t_tab = np.insert(10**-5,1,np.logspace(np.log10(t_i),np.log10(t_f),num=Nstep))
 
-	return t_tab
+	return float(t_tab)
 
 
