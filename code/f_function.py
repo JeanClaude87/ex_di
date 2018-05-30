@@ -391,8 +391,10 @@ def Corr_Evolution(Proj_Psi0,E,V,t,Base_NumRes,Base_Corr):
 
 	Pro_t  = np.outer(Pro_t0*np.exp(1j*E*t),Pro_t0*np.exp(-1j*E*t))
 
-	dens_t 	   = np.real(np.einsum('nm,jn,jm,ji -> i', Pro_t, V, V, Base_NumRes))
-	corr_t 	   = np.real(np.einsum('nm,jn,jm,jli -> li', Pro_t, V, V, Base_Corr))
+	coef 	   = np.real(np.einsum('nm,jn,jm -> j', Pro_t, V, V))
+
+	dens_t 	   = np.real(np.einsum('j,ji -> i',   coef, Base_NumRes))
+	corr_t 	   = np.real(np.einsum('j,jli -> li', coef, Base_Corr))
 	corr_con_t = np.real(corr_t - np.outer(dens_t,dens_t))
 
 	corr_con_t_AVER = Trasl_Mean(corr_con_t)
