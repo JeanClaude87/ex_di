@@ -151,7 +151,7 @@ def time_tab(t_i,t_f,Nstep,Lo_li):
 	#if 0 linear, 1 log
 	Lo_li = 1
 
-	t_tab = ff.time_tab(t_i,t_f,Nstep,Lo_li)
+	t_tab = time_tab(t_i,t_f,Nstep,Lo_li)
 	print(t_tab)
 
 	####...........properties
