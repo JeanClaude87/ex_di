@@ -2,9 +2,12 @@ rm -f script_wait.sh
 rm -f u*
 rm -f ../L*
 
+
+
 cd code
-        python setup.py build_ext --inplace
-        wait    
+#        python setup.py build_ext --inplace
+#        wait    
+ rm -rf *so *c *build *core __pycache__
 cd ..
 
 printf "%s\n" "#!/bin/bash" >> script_wait.sh
