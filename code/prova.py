@@ -9,8 +9,8 @@ import time
 LOCAL = os.path.abspath('.')
 
 #....................................LUNGHEZZA
-L_i = 6
-L_f = 6
+L_i = 10
+L_f = 10
 L_D = 2
 
 L_n = int(1+(L_f-L_i)/L_D)
@@ -26,8 +26,8 @@ for L in L_tab:
 		np.save(LOCAL+os.sep+nomefile, CdC_Tab)
 
 #....................................DISORDINE
-D_i = 0
-D_f = 0
+D_i = 5
+D_f = 5
 D_D = 1
 
 D_n = int(1+(D_f-D_i)/D_D)
@@ -59,8 +59,10 @@ for i in L_tab:
 		for n in range(NN_RR[n0]):
 			data = [i,j,n+1]
 
+
+                        print(time.ctime())
 			diagonal.ExactDiagonalization(PATH_now,data[0],data[1],Tab_CdC)
-			#def 	 ExactDiagonalization(PATH_now,   L,     D,    Tab_CdC):			
+	                print(time.ctime())	
 	n0 += 1
 
 
