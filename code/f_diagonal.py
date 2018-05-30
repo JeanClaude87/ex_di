@@ -152,6 +152,7 @@ def time_tab(t_i,t_f,Nstep,Lo_li):
 	Lo_li = 1
 
 	t_tab = time_tab(t_i,t_f,Nstep,Lo_li)
+	print("CIAO")
 	print(t_tab)
 
 	####...........properties
