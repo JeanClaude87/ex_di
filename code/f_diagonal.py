@@ -180,8 +180,8 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 	nomef_corr_con_t = ff.generate_filename(PATH_now+str('corr_con_t-'))
 	nomef_dens_t     = ff.generate_filename(PATH_now+str('dens_t-'))
 
-	np.savetxt(nomef_corr_con_t, C_tot , fmt='%1.10f')
-	np.savetxt(nomef_dens_t, D_tot     , fmt='%1.10f')	
+	np.savetxt(nomef_corr_con_t, C_tot , fmt='%.9f')
+	np.savetxt(nomef_dens_t, D_tot     , fmt='%.9f')
 
 	return 1
 
