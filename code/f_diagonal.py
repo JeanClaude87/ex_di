@@ -146,8 +146,8 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 
 	####...........t_i deve essere maggiore di 1
 	t_i   = float(1.0) 
-	t_f   = float(500.0)
-	Nstep = int(50)
+	t_f   = float(10000.0)
+	Nstep = int(250)
 
 	#if 0 linear, 1 log
 	Lo_li = int(1)

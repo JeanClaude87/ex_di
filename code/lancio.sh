@@ -24,10 +24,9 @@ echo $SHELL
 
 for((i=0; i<kkk; i++))
 	do
-	for((j=0; j<20; j++))
+	for((j=0; j<16; j++))
 		do		
 			python wrap.py LLL DDD nnn
-			wait
 		done
 	done
 
