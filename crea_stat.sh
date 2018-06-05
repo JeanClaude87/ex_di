@@ -12,10 +12,10 @@ printf "%s\n" "#!/bin/bash" >> script_wait.sh
 LL=(8)
 
 #DD=(2. 2.25 2.5 2.75 3. 3.25 3.5 3.75 4. 4.25 4.5 4.75 5.)
-DD=(2.)
+DD=(2. 5.)
 
 nr=(1)
-ncy=1
+ncy=500
 
 lenl=${#LL[@]} 
 lend=${#DD[@]} 
