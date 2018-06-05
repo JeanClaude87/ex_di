@@ -153,8 +153,8 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 	Lo_li = int(1)
 
 	t_tab = time_tab(t_i,t_f,Nstep,Lo_li)
-	print("CIAO")
-	print(t_tab)
+	#print("CIAO")
+	#print(t_tab)
 
 	####...........properties
 	L_tab = [int(j) for j in range(LL)]

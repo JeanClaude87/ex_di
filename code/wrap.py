@@ -46,7 +46,7 @@ with open('../fatti.dat', 'a') as ee:
 
 start = time.time()
 
-#diagonal.ExactDiagonalization(PATH_now,LL,DD,Tab_CdC)
+diagonal.ExactDiagonalization(PATH_now,LL,DD,Tab_CdC)
 
 end = time.time()
 tempotras = (end - start)
