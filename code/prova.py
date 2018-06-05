@@ -9,8 +9,8 @@ import time
 LOCAL = os.path.abspath('.')
 
 #....................................LUNGHEZZA
-L_i = 14
-L_f = 14
+L_i = 8
+L_f = 8
 L_D = 2
 
 L_n = int(1+(L_f-L_i)/L_D)
