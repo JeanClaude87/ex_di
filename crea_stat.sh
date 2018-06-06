@@ -1,5 +1,5 @@
-rm -f script_wait.sh
-rm -f u*
+#rm -f script_wait.sh
+#rm -f u*
 rm -f ../L*
 
 cd code
@@ -9,12 +9,12 @@ cd ..
 
 printf "%s\n" "#!/bin/bash" >> script_wait.sh
 
-LL=(8 10 12)
+LL=(12)
 
 #DD=(2. 2.25 2.5 2.75 3. 3.25 3.5 3.75 4. 4.25 4.5 4.75 5.)
-DD=(2. 5.)
+DD=(2. ) # 5. 
 
-nr=(2000 1000 1000)
+nr=(188) # 375
 ncy=1
 
 lenl=${#LL[@]} 
