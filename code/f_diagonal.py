@@ -123,6 +123,7 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 	nomef_NN_Ht	= str('corr_H_t-')
 	np.savetxt(ff.generate_filename(PATH_now+nomef_NN_Ht), SzSz_con_Huse_t, fmt='%.9f')
 
+	'''
 
 	#.............................SzSz DE
 	SzSz_DE			= ff.Mat_SzSz_DE(V,Base_Corr,Proj_Psi0**2)
@@ -132,14 +133,13 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 	nomef_NN_DE	= str('corr_DE-')
 	np.savetxt(ff.generate_filename(PATH_now+nomef_NN_DE), SzSz_con_DE, fmt='%.9f')
 
+	'''
 
 	#.............................CiCj
 	CdC    = ff.Mat_CdC_Psi0(Tab_CdC,Proj_Psi0**2,Dim,LL,V)
 
 	nomefile_cc = str('corr_c-')
 	np.savetxt(ff.generate_filename(PATH_now+nomefile_cc), CdC, fmt='%.9f')
-
-	'''
 
 
 	#.............................Evolution
@@ -177,8 +177,9 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 			C_tot = np.transpose(C)
 		else:		
 			C_tot = np.concatenate((C_tot,np.transpose(C)),axis=0)
-		'''
+
 	#....density
+
 		D = np.empty((3,LL),dtype=float)
 
 		D[0] = [t_tab[t] for j in range(LL)]
@@ -189,7 +190,7 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 			D_tot = np.transpose(D)
 		else:		
 			D_tot = np.concatenate((D_tot,np.transpose(D)),axis=0)
-		'''
+
 
 
 	nomef_corr_con_t = ff.generate_filename(PATH_now+str('corr_con_t-'))
@@ -197,6 +198,9 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 
 	np.savetxt(nomef_corr_con_t, C_tot , fmt='%.9f')
 #	np.savetxt(nomef_dens_t, D_tot     , fmt='%.9f')
+
+
+	'''
 
 	return 1
 
