@@ -140,7 +140,7 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 
 	nomefile_cc = str('corr_c-')
 	np.savetxt(ff.generate_filename(PATH_now+nomefile_cc), CdC, fmt='%.9f')
-
+	'''
 
 	#.............................Evolution
 
@@ -178,6 +178,14 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 		else:		
 			C_tot = np.concatenate((C_tot,np.transpose(C)),axis=0)
 
+	nomef_corr_con_t = ff.generate_filename(PATH_now+str('corr_con_t-'))
+	np.savetxt(nomef_corr_con_t, C_tot , fmt='%.9f')
+	
+
+	'''
+
+
+
 	#....density
 
 		D = np.empty((3,LL),dtype=float)
@@ -193,10 +201,8 @@ def ExactDiagonalization(PATH_now,L,D,Tab_CdC):
 
 
 
-	nomef_corr_con_t = ff.generate_filename(PATH_now+str('corr_con_t-'))
-#	nomef_dens_t     = ff.generate_filename(PATH_now+str('dens_t-'))
 
-	np.savetxt(nomef_corr_con_t, C_tot , fmt='%.9f')
+#	nomef_dens_t     = ff.generate_filename(PATH_now+str('dens_t-'))
 #	np.savetxt(nomef_dens_t, D_tot     , fmt='%.9f')
 
 
