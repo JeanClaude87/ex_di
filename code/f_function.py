@@ -9,9 +9,9 @@ import scipy.special as special
 import os
 from datetime import datetime
 import time
+from scipy.sparse import csc_matrix
 
-
-#..................................counting number of zero
+#..................................counting number of one
 POPCOUNT_TABLE16 = [0] * 2**16
 for index in range(len(POPCOUNT_TABLE16)):
 	POPCOUNT_TABLE16[index] = (index & 1) + POPCOUNT_TABLE16[index >> 1]
@@ -172,27 +172,74 @@ def Ham_Dense_Creation(LL,NN,Dim,D,Dis_real,BC,Base_Bin,Base_Num,Hop_Bin,LinTab)
 			
 			if one_count(xx) == NN:
 				ham[bra,ket] = t/2
-				#ham[bra,ket] = t 
 			uu = Base_Bin[i] & Hop_Bin[j]
 			
 			if one_count(uu) == 1:
 				n_int -= 0.25
-				#0.5 perche spin 1/2*1/2
 			else: 
 				n_int += 0.25
-			
-			#print TO_con(Base_Bin[i],LL), TO_con(Hop_Bin[j],LL), TO_con(uu,LL), one_count(uu), n_int
 
 			n_ones = Base_Bin[i] & int(2**(LL-j-1)) 
-			#diventa diverso da zero solamente se ce un 1 in quel sito
 			if n_ones != 0:
 				n_dis += 0.5*Dis_real[j]
-				#0.5 perche spin 1/2
 			else:
 				n_dis -= 0.5*Dis_real[j]
 
-		ham[bra,bra] = t*(n_int + D*n_dis)
-		#print TO_con(bra,LL), n_int
+		ham[bra,bra] = t*(0*n_int + D*n_dis)
+
+	return ham
+
+
+#..................................................Hamiltonian Creation
+def Ham_Sparse_Creation(LL,NN,Dim,D,Dis_real,BC,Base_Bin,Base_Num,Hop_Bin,LinTab):
+
+	t=1.
+	# tutto in unita di t!!
+
+	ham_ind1 = []
+	ham_ind2 = []
+	ham_val  = []
+
+
+	if BC == 1:
+		Hop_dim=LL-1
+	else:
+		Hop_dim=LL
+
+	for i in range(Dim):
+		n_int = 0.0
+		n_dis = 0.0
+		bra = LinLook(Base_Bin[i],LL,LinTab)
+
+		for j in range(Hop_dim):
+			xx  = Base_Bin[i]^Hop_Bin[j]
+			ket = LinLook(xx,LL,LinTab)
+			
+			if one_count(xx) == NN:
+
+				ham_ind1.append( bra )
+				ham_ind2.append( ket )
+				ham_val.append(  t/2 )
+
+			uu = Base_Bin[i] & Hop_Bin[j]
+
+			if one_count(uu) == 1:
+				n_int -= 0.25
+			else: 
+				n_int += 0.25
+
+			n_ones = Base_Bin[i] & int(2**(LL-j-1)) 
+			if n_ones != 0:
+				n_dis += 0.5*Dis_real[j]
+			else:
+				n_dis -= 0.5*Dis_real[j]
+
+		ham_ind1.append( bra )
+		ham_ind2.append( bra )
+		ham_val.append(  t*(0*n_int + D*n_dis) )
+
+	ham = csc_matrix((ham_val, (ham_ind1,ham_ind2)), shape=(Dim,Dim), dtype=np.double)
+
 	return ham
 
 
@@ -211,7 +258,7 @@ def levstat(E,Dim):
 
 #..................................................Hamiltonian Sparse Diagonalization
 def eigsh(A,n):
-	E = _la.sparse.linalg.eigsh(A, n=6)
+	E = _la.sparse.linalg.eigsh(A, n)
 	return E
 
 #..................................................Initial state
@@ -290,6 +337,20 @@ def SzSz_con_DE(A,B,C):
 	Sz2=np.outer(C,C)
 	uga=B-Sz2
 	return uga
+
+def SPARSE_SzSz_con_DE(psi_t,Base_Corr,Base_NumRes):
+
+	#mean SzSz
+	SzSz = np.einsum('i, ijk -> jk', np.abs(psi_t)**2, Base_Corr)
+
+	#mean Sz
+	Dens = np.dot(np.transpose(np.abs(psi_t)**2),Base_NumRes)
+	Sz2  = np.outer(Dens,Dens)
+
+	#connected correlations
+	SzSz_con = SzSz - Sz2
+
+	return SzSz_con
 
 
 #..................................................CdiCj
@@ -372,14 +433,6 @@ def generate_filename(basename):
 		time.sleep(1)
 		return generate_filename(basename)
 	return xx
-
-#..................................................Traslations MEAN
-def Trasl_Mean(A):
-	a = A.shape
-	B = np.zeros((a[1],a[1]), dtype=np.float)
-	for i in range(a[1]):
-		B[i] = np.roll(A[i],-i)
-	return np.mean(B, axis=0)
 
 #..................................................Entropy
 

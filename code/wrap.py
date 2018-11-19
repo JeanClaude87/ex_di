@@ -21,7 +21,7 @@ DD = sys.argv[2]
 n_rea = sys.argv[3]
 #print 'n', n_rea, type(n_rea)
 
-directory = '../dati/L_'+str(LL)+'/D_'+str(DD)
+directory = '../dati_0/L_'+str(LL)+'/D_'+str(DD)
 if not os.path.exists(LOCAL+os.sep+directory):
 	os.makedirs(LOCAL+os.sep+directory)
 

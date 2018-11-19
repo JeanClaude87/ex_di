@@ -7,24 +7,25 @@ from time import gmtime, strftime
 import time
 
 LOCAL = os.path.abspath('.')
+np.set_printoptions(precision=4)
 
 #....................................LUNGHEZZA
-L_i = 8
-L_f = 8
+L_i = 18
+L_f = 18
 L_D = 2
 
 L_n = int(1+(L_f-L_i)/L_D)
 
 #print L_i, L_f, L_n
 L_tab = [int(L_i+j*L_D) for j in range(L_n)]
-
+'''
 for L in L_tab:
 
 	nomefile = 'CdC-L_'+str(L)+'.npy'
 	if not os.path.isfile(LOCAL+os.sep+nomefile):
 		CdC_Tab = ff.prep_tab(L)
 		np.save(LOCAL+os.sep+nomefile, CdC_Tab)
-
+'''
 #....................................DISORDINE
 D_i = 5
 D_f = 5
@@ -47,11 +48,11 @@ NN_RR = [1]
 n0=0
 for i in L_tab:
 
-	nomefile = str('CdC-L_'+str(i)+'.npy')
-	Tab_CdC = np.load(LOCAL+os.sep+nomefile)
+	#nomefile = str('CdC-L_'+str(i)+'.npy')
+	#Tab_CdC = np.load(LOCAL+os.sep+nomefile)
 
 	for j in D_tab:
-		directory = 'DATA/L_'+str(i)+'/D_'+str(j)
+		directory = 'DATA_0/L_'+str(i)+'/D_'+str(j)
 		PATH_now = LOCAL+os.sep+directory+os.sep
 		if not os.path.exists(PATH_now):
 			os.makedirs(PATH_now)		
@@ -66,7 +67,7 @@ for i in L_tab:
 
 
 			AA=time.clock()
-			diagonal.ExactDiagonalization(PATH_now,data[0],data[1],Tab_CdC)
+			diagonal.ExactDiagonalization(PATH_now,data[0],data[1])#,Tab_CdC)
 			print(time.clock()-AA)
 			#def 	 ExactDiagonalization(PATH_now,   L,     D,    Tab_CdC):			
 
