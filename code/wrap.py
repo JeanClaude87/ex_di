@@ -30,12 +30,13 @@ if not os.path.exists(LOCAL+os.sep+directory):
 PATH_now = LOCAL+os.sep+directory+os.sep
 
 nomefile = str('CdC-L_'+str(LL)+'.npy')
+'''
 if not os.path.isfile(LOCAL+os.sep+nomefile):
 	CdC_Tab = ff.prep_tab(L)
 	np.save(LOCAL+os.sep+nomefile, CdC_Tab)
 
 Tab_CdC  = np.load(LOCAL+os.sep+nomefile)
-
+'''
 
 
 orario = strftime("%Y-%m-%d %H:%M:%S", gmtime())
@@ -46,7 +47,7 @@ with open('../fatti.dat', 'a') as ee:
 
 start = time.time()
 
-diagonal.ExactDiagonalization(PATH_now,LL,DD,Tab_CdC)
+diagonal.ExactDiagonalization(PATH_now,LL,DD)
 
 end = time.time()
 tempotras = (end - start)
