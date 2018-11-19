@@ -10,8 +10,8 @@ LOCAL = os.path.abspath('.')
 np.set_printoptions(precision=4)
 
 #....................................LUNGHEZZA
-L_i = 18
-L_f = 18
+L_i = 8
+L_f = 8
 L_D = 2
 
 L_n = int(1+(L_f-L_i)/L_D)

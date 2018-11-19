@@ -70,7 +70,7 @@ def ExactDiagonalization(PATH_now,L,D): #,Tab_CdC):
 	psi_0[randint(0, Dim-1)] = 1
 
 	dt       = 0.1
-	step_num = 200
+	step_num = 500
 	t_i 	 = 0
 	t_f 	 = dt*step_num
 
