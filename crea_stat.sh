@@ -1,5 +1,5 @@
-#rm -f script_wait.sh
-#rm -f u*
+rm -f script_wait.sh
+rm -f u*
 rm -f ../L*
 
 cd code
