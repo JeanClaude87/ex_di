@@ -176,7 +176,7 @@ if COMM.rank == 0:
 	A1 = [item for sublist in ham_val_0  for item in sublist]
     
 	start2 = time.time()
-	print('isparsa ham', start2-start1)
+	print('sparsa ham', start2-start1)
 
 	ham = csc_matrix((A1, (X1,Y1)), shape=(Dim,Dim), dtype=np.double)
 
@@ -191,11 +191,14 @@ if COMM.rank == 0:
 	A        = -1.0J*ham
 
 	start3 = time.time()
-	print('evoluzione', start3-start2)
+	print('inizip evoluzione', start3-start2)
 
 	psit     = linalg.expm_multiply(A, psi_0, start=t_i, stop=t_f, num=step_num+1, endpoint=True)
 
-	corr = np.zeros((step_num,LL), dtype=np.float)
+	start4 = time.time()
+	print('psit', start4-start3)
+
+	corr     = np.zeros((step_num,LL), dtype=np.float)
 	
 	for i in range(step_num):
 
@@ -210,7 +213,7 @@ if COMM.rank == 0:
 	np.savetxt(ff.generate_filename(PATH_now+nome_c_sp), corr, fmt='%.9f')
 
 	start4 = time.time()
-	print('totale', start4-start3)
+	print('corr', start4-start3)
 
 ########################################
 ########################################
