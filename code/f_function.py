@@ -21,18 +21,18 @@ def one_count(v):
 #..................................Binomial
 def comb(n, k):
 	kk = factorial(n) / factorial(k) / factorial(n - k)
-	uga= int(kk)
+	uga= np.int64(kk)
 	return uga
 
 
 #..................................from configuration to bin number
 def TO_bin(xx):
-	return int(xx,2)
+	return np.int64(xx,2)
 
 #..................................from bin number to configuration
 def TO_con(x,L):
-	x1=int(x)
-	L1=int(L)
+	x1=np.int64(x)
+	L1=np.int64(L)
 	return np.binary_repr(x1, width=L1)
 
 
@@ -80,23 +80,23 @@ def Dis_Creation(LL,Dis_gen):
 #..................................creation Lin Tables
 def LinTab_Creation(LL,Base,di):
 
-	L = int(LL)
-	Dim=int(di)
+	L = np.int64(LL)
+	Dim=np.int64(di)
 
 #..........................Table Creation
-	MaxSizeLINVEC = sum([2**(i-1) for i in range(1,int(L/2+1))])
+	MaxSizeLINVEC = sum([2**(i-1) for i in range(1,np.int64(L/2+1))])
 
 	#....creates a table LinTab_L+LinTab_R
 	#.....................[  ,  ]+[  ,  ]
 	LinTab   = np.zeros((MaxSizeLINVEC+1,4),dtype=int)
 	Jold     = JJ=j1=j2=0
-	Conf_old = TO_con(0,int(L/2))
+	Conf_old = TO_con(0,np.int64(L/2))
 
 #...........................Table Filling
 	for i in range(Dim):
-		Conf_lx = Base[i][0:int(L/2)]
+		Conf_lx = Base[i][0:np.int64(L/2)]
 		Bin_lx  = TO_bin(Conf_lx)
-		Conf_rx = Base[i][int(L/2):L]		
+		Conf_rx = Base[i][np.int64(L/2):L]		
 		Bin_rx  = TO_bin(Conf_rx)
 
 		if Conf_lx==Conf_old:
@@ -113,12 +113,12 @@ def LinTab_Creation(LL,Base,di):
 		Jold = j1
 		JJ  += 1
 
-		#print Conf_lx, int(Bin_lx), int(j1), Conf_rx, int(Bin_rx), int(j2)
+		#print Conf_lx, np.int64(Bin_lx), np.int64(j1), Conf_rx, np.int64(Bin_rx), np.int64(j2)
 
-		LinTab[Bin_lx,0]= int(Bin_lx)
-		LinTab[Bin_lx,1]= int(j1)
-		LinTab[Bin_rx,2]= int(Bin_rx)
-		LinTab[Bin_rx,3]= int(j2)
+		LinTab[Bin_lx,0]= np.int64(Bin_lx)
+		LinTab[Bin_lx,1]= np.int64(j1)
+		LinTab[Bin_rx,2]= np.int64(Bin_rx)
+		LinTab[Bin_rx,3]= np.int64(j2)
 
 #	print LinTab
 	return LinTab
@@ -127,8 +127,8 @@ def LinTab_Creation(LL,Base,di):
 def LinLook(vec,LL,arr):
 
 	Vec  = TO_con(vec,LL)
-	v1	 = Vec[0:int(LL/2)]
-	v2	 = Vec[int(LL/2):LL]
+	v1	 = Vec[0:np.int64(LL/2)]
+	v2	 = Vec[np.int64(LL/2):LL]
 	ind1 = TO_bin(v1)
 	ind2 = TO_bin(v2)
 	return arr[ind1,1]+arr[ind2,3]-1
@@ -176,7 +176,7 @@ def Ham_Dense_Creation(LL,NN,Dim,D,Dis_real,BC,Base_Bin,Base_Num,Hop_Bin,LinTab)
 			else: 
 				n_int += 0.25
 
-			n_ones = Base_Bin[i] & int(2**(LL-j-1)) 
+			n_ones = Base_Bin[i] & np.int64(2**(LL-j-1)) 
 			if n_ones != 0:
 				n_dis += 0.5*Dis_real[j]
 			else:
@@ -225,7 +225,7 @@ def Ham_Sparse_Creation(LL,NN,Dim,D,Dis_real,BC,Base_Bin,Base_Num,Hop_Bin,LinTab
 			else: 
 				n_int += 0.25
 
-			n_ones = Base_Bin[i] & int(2**(LL-j-1)) 
+			n_ones = Base_Bin[i] & np.int64(2**(LL-j-1)) 
 			if n_ones != 0:
 				n_dis += 0.5*Dis_real[j]
 			else:
@@ -260,7 +260,7 @@ def eigsh(A,n):
 
 #..................................................Initial state
 def Psi_0(Dim):
-	n = np.random.randint(0,Dim-1)
+	n = np.random.randnp.int64(0,Dim-1)
 	#n = 0
 	return n
 
@@ -353,13 +353,13 @@ def SPARSE_SzSz_con_DE(psi_t,Base_Corr,Base_NumRes):
 #..................................................CdiCj
 
 def prep_tab(L):
-	Dim = comb(L, int(L/2))
+	Dim = comb(L, np.int64(L/2))
 
-	Base_Num = Base_prep(L,int(L/2))
-	Base_Bin = [int(Base_Num [i],2) for i in range(Dim)]
+	Base_Num = Base_prep(L,np.int64(L/2))
+	Base_Bin = [np.int64(Base_Num [i],2) for i in range(Dim)]
 	LinTab   = LinTab_Creation(L,Base_Num,Dim)
 
-	CdC_Tab  = CdC_tabCreation (L,int(L/2),Dim,Base_Num,Base_Bin,LinTab)
+	CdC_Tab  = CdC_tabCreation (L,np.int64(L/2),Dim,Base_Num,Base_Bin,LinTab)
 
 	return CdC_Tab
 
@@ -381,12 +381,12 @@ def CdC_tabCreation (LL,NN,Dim,Base_Num,Base_Bin,LinTab):
 				a = c[0:j] 
 				b = c[j+1:LL]
 				d = ''.join([a,'0',b])
-				if (one_count(int(d,2)) == NN and int(d,2) != Base_Bin[l]):
+				if (one_count(np.int64(d,2)) == NN and np.int64(d,2) != Base_Bin[l]):
 					bra = LinLook(Base_Bin[l],LL,LinTab)
-					ket = LinLook(int(d,2),LL,LinTab)
+					ket = LinLook(np.int64(d,2),LL,LinTab)
 				
-					xx[x0,0] = int(bra)
-					xx[x0,1] = int(ket)
+					xx[x0,0] = np.int64(bra)
+					xx[x0,1] = np.int64(ket)
 					x0 += 1
 				
 			CdC_Tab[i,j] = xx
@@ -423,7 +423,7 @@ def Mat_CdC_Psi0(UU1,Proj_Psi0,Dim,LL,V):
 	return CC1
 
 def generate_filename(basename):
-	local_time = str(int(round(time.time() * 1000)))
+	local_time = str(np.int64(round(time.time() * 1000)))
 	xx = basename + local_time + ".dat"
 	if os.path.isfile(xx):
 		time.sleep(1)
@@ -454,13 +454,13 @@ def Corr_Evolution(Proj_Psi0,E,V,t,Base_NumRes,Base_Corr):
 #..................................................Print_MATRIX
 def print_matrix(H):
 
-	#print('matrix to print')
+	#prnp.int64('matrix to print')
 
 	if isinstance(H, csc_matrix):
 		print_h = csc_matrix.todense(H)
-		print(print_h)
+		prnp.int64(print_h)
 	else:
-		print(H)
+		prnp.int64(H)
 
 	return 0
 
