@@ -27,7 +27,7 @@ def comb(n, k):
 
 #..................................from configuration to bin number
 def TO_bin(xx):
-	return np.int64(xx,2)
+	return int(xx,2)
 
 #..................................from bin number to configuration
 def TO_con(x,L):
@@ -356,7 +356,7 @@ def prep_tab(L):
 	Dim = comb(L, np.int64(L/2))
 
 	Base_Num = Base_prep(L,np.int64(L/2))
-	Base_Bin = [np.int64(Base_Num [i],2) for i in range(Dim)]
+	Base_Bin = [int(Base_Num [i],2) for i in range(Dim)]
 	LinTab   = LinTab_Creation(L,Base_Num,Dim)
 
 	CdC_Tab  = CdC_tabCreation (L,np.int64(L/2),Dim,Base_Num,Base_Bin,LinTab)
@@ -381,9 +381,9 @@ def CdC_tabCreation (LL,NN,Dim,Base_Num,Base_Bin,LinTab):
 				a = c[0:j] 
 				b = c[j+1:LL]
 				d = ''.join([a,'0',b])
-				if (one_count(np.int64(d,2)) == NN and np.int64(d,2) != Base_Bin[l]):
+				if (one_count(int(d,2)) == NN and int(d,2) != Base_Bin[l]):
 					bra = LinLook(Base_Bin[l],LL,LinTab)
-					ket = LinLook(np.int64(d,2),LL,LinTab)
+					ket = LinLook(int(d,2),LL,LinTab)
 				
 					xx[x0,0] = np.int64(bra)
 					xx[x0,1] = np.int64(ket)
