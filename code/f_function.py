@@ -5,10 +5,7 @@ import scipy.linalg as _la
 from math import factorial
 import itertools
 import time 
-import scipy.special as special
 import os
-from datetime import datetime
-import time
 from scipy.sparse import csc_matrix
 
 #..................................counting number of one
@@ -426,7 +423,6 @@ def Mat_CdC_Psi0(UU1,Proj_Psi0,Dim,LL,V):
 	return CC1
 
 def generate_filename(basename):
-	unix_timestamp = int(time.time())
 	local_time = str(int(round(time.time() * 1000)))
 	xx = basename + local_time + ".dat"
 	if os.path.isfile(xx):
@@ -455,3 +451,25 @@ def Corr_Evolution(Proj_Psi0,E,V,t,Base_NumRes,Base_Corr):
 	return dens_t,corr_t,corr_con_t_AVER
 
 
+#..................................................Print_MATRIX
+def print_matrix(H):
+
+	#print('matrix to print')
+
+	if isinstance(H, csc_matrix):
+		print_h = csc_matrix.todense(H)
+		print(print_h)
+	else:
+		print(H)
+
+	return 0
+
+def split(container, count):
+	"""
+	Simple function splitting a container into equal length chunks.
+	Order is not preserved but this is potentially an advantage depending on
+	the use case.
+	"""
+	return [container[_i::count] for _i in range(count)]
+
+	

@@ -26,7 +26,7 @@ for((i=0; i<kkk; i++))
 	do
 	for((j=0; j<16; j++))
 		do		
-			python3 wrap.py LLL DDD nnn
+			mpirun -np 16 python3 wrap.py LLL DDD nnn
 		done
 	done
 
