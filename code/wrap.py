@@ -172,9 +172,6 @@ if COMM.rank == 0:
 
 	ham = csc_matrix((A1, (X1,Y1)), shape=(Dim,Dim), dtype=np.double)
 
-
-if COMM.rank == 0:
-
 	psi_0   = np.zeros(Dim, dtype=np.float)
 	psi_0[randint(0, Dim-1)] = 1
 
@@ -183,7 +180,7 @@ if COMM.rank == 0:
 	t_i 	 = 0
 	t_f 	 = dt*step_num
 
-	A        = -1.0J*HAMS
+	A        = -1.0J*ham
 
 	psit     = linalg.expm_multiply(A, psi_0, start=t_i, stop=t_f, num=step_num+1, endpoint=True)
 
