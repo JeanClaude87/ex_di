@@ -97,13 +97,6 @@ Hop_Bin = [int(Hop_Num[i],2) for i in range(Hop_dim)]
 #..................................................Lin Tab creation
 LinTab = ff.LinTab_Creation(int(LL),Base_Num,Dim)
 
-
-if COMM.rank == 0:
-	HAMS   = ff.Ham_Sparse_Creation(LL,NN,Dim,DD,Dis_real,BC,Base_Bin,Base_Num,Hop_Bin,LinTab)
-	ff.print_matrix(HAMS)
-
-
-
 ########################################
 ########################################
 ########################################
@@ -178,7 +171,6 @@ if COMM.rank == 0:
 	A1 = [item for sublist in ham_val_0  for item in sublist]
 
 	ham = csc_matrix((A1, (X1,Y1)), shape=(Dim,Dim), dtype=np.double)
-	ff.print_matrix(ham)
 
 
 if COMM.rank == 0:
