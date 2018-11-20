@@ -62,6 +62,9 @@ Dim = int(ff.comb(LL, NN))
 
 if COMM.rank == 0:
     
+	start = time.time()
+	print('t0', start)
+
 	#..................................................Base creation
 	Base_Num       = ff.Base_prep(LL,NN)
 	Base_Bin       = [int(Base_Num [i],2) for i in range(Dim)]
@@ -106,6 +109,10 @@ LinTab = ff.LinTab_Creation(int(LL),Base_Num,Dim)
 t=1.
 	# tutto in unita di t!!
 
+if COMM.rank == 0:
+    
+	start1 = time.time()
+	print('inizia ham', start1-start)
 
 if COMM.rank == 0:
 	jobs = list(range(Dim))
@@ -167,6 +174,9 @@ if COMM.rank == 0:
 	X1 = [item for sublist in ham_ind1_0 for item in sublist]
 	Y1 = [item for sublist in ham_ind2_0 for item in sublist]
 	A1 = [item for sublist in ham_val_0  for item in sublist]
+    
+	start2 = time.time()
+	print('isparsa ham', start2-start1)
 
 	ham = csc_matrix((A1, (X1,Y1)), shape=(Dim,Dim), dtype=np.double)
 
@@ -179,6 +189,9 @@ if COMM.rank == 0:
 	t_f 	 = dt*step_num
 
 	A        = -1.0J*ham
+
+	start3 = time.time()
+	print('evoluzione', start3-start2)
 
 	psit     = linalg.expm_multiply(A, psi_0, start=t_i, stop=t_f, num=step_num+1, endpoint=True)
 
@@ -196,6 +209,8 @@ if COMM.rank == 0:
 	nome_c_sp	= str('corr_DE-sp-')
 	np.savetxt(ff.generate_filename(PATH_now+nome_c_sp), corr, fmt='%.9f')
 
+	start4 = time.time()
+	print('totale', start4-start3)
 
 ########################################
 ########################################
