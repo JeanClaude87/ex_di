@@ -66,6 +66,7 @@ if COMM.rank == 0:
 	Base_Num       = ff.Base_prep(LL,NN)
 	Base_Bin       = [int(Base_Num [i],2) for i in range(Dim)]
 	Base_NumRes    = ff.BaseNumRes_creation(Dim,LL,Base_Num)
+	Base_Corr      = ff.OUTER_creation(LL,Dim,Base_NumRes)
 	Dis_real = ff.Dis_Creation(LL,Dis_gen)
 
 else:
@@ -168,7 +169,7 @@ if COMM.rank == 0:
 	A1 = [item for sublist in ham_val_0  for item in sublist]
 
 	ham = csc_matrix((A1, (X1,Y1)), shape=(Dim,Dim), dtype=np.double)
-	'''
+
 	psi_0   = np.zeros(Dim, dtype=np.float)
 	psi_0[randint(0, Dim-1)] = 1
 
@@ -194,7 +195,7 @@ if COMM.rank == 0:
 
 	nome_c_sp	= str('corr_DE-sp-')
 	np.savetxt(ff.generate_filename(PATH_now+nome_c_sp), corr, fmt='%.9f')
-	'''
+
 
 ########################################
 ########################################
