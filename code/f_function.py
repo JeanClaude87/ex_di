@@ -454,13 +454,13 @@ def Corr_Evolution(Proj_Psi0,E,V,t,Base_NumRes,Base_Corr):
 #..................................................Print_MATRIX
 def print_matrix(H):
 
-	#prnp.int64('matrix to print')
+	#print('matrix to print')
 
 	if isinstance(H, csc_matrix):
 		print_h = csc_matrix.todense(H)
-		prnp.int64(print_h)
+		print(print_h)
 	else:
-		prnp.int64(H)
+		print(H)
 
 	return 0
 
